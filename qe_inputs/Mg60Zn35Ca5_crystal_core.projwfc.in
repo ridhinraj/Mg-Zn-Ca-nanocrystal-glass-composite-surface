@@ -1,0 +1,10 @@
+&projwfc
+  prefix  = 'Mg60Zn35Ca5_crystal_core'
+  outdir  = './tmp_Mg60Zn35Ca5_crystal_core'
+  filpdos = 'pdos/Mg60Zn35Ca5_crystal_core/Mg60Zn35Ca5_crystal_core'
+  Emin    = -12.0
+  Emax    =  2.0
+  DeltaE  =  0.02
+  ngauss  =  0
+  degauss =  0.01
+/

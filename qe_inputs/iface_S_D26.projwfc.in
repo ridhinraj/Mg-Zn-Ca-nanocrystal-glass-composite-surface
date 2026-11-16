@@ -1,0 +1,10 @@
+&projwfc
+  prefix  = 'iface_S_D26'
+  outdir  = './tmp_iface_S_D26'
+  filpdos = 'pdos/iface_S_D26/iface_S_D26'
+  Emin    = -12.17
+  Emax    = 3.83
+  DeltaE  =  0.02
+  ngauss  =  0
+  degauss =  0.01
+/

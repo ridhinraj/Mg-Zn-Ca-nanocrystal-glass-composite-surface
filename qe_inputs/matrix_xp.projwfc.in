@@ -1,0 +1,10 @@
+&projwfc
+  prefix  = 'matrix_xp'
+  outdir  = './tmp_matrix_xp'
+  filpdos = 'pdos/matrix_xp/matrix_xp'
+  Emin    = -11.23
+  Emax    = 4.77
+  DeltaE  =  0.02
+  ngauss  =  0
+  degauss =  0.01
+/

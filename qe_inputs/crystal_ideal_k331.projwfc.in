@@ -1,0 +1,10 @@
+&projwfc
+  prefix  = 'crystal_ideal_k331'
+  outdir  = './tmp_crystal_ideal_k331'
+  filpdos = 'pdos/crystal_ideal_k331/crystal_ideal_k331'
+  Emin    = -11.68
+  Emax    = 4.32
+  DeltaE  =  0.02
+  ngauss  =  0
+  degauss =  0.01
+/

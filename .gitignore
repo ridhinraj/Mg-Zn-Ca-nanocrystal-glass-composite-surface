@@ -1,0 +1,6 @@
+*.out
+*.err
+*.wfc*
+*.save/
+*.cube
+__pycache__/

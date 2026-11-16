@@ -1,0 +1,68 @@
+# ==========================================================================
+# Stage 1a (REVISED): Cut an equatorial slab through the nanocrystal center.
+#
+# Confirmed from AN_composite_relaxed_300K.data:
+#   - 3 atom types only: 1=Mg (24.32), 2=Zn (65.39), 3=Ca (40.078). No Sr.
+#   - Box: cubic, 1.317913 to 205.682087 in x,y,z (side length 204.36 A)
+#   - Spherical Mg nanocrystal centered exactly at box center (103.5,103.5,103.5)
+#       r <  20 A : pure Mg crystal core
+#       r = 20-30 A : interphase transition shell
+#       r >  30 A : bulk glass matrix (baseline ~60/35/5 Mg/Zn/Ca)
+#
+# Strategy: instead of adding vacuum at the original (far) box face, we
+# delete everything above the sphere's equatorial plane (z > 103.5) and add
+# vacuum there instead. This exposes crystal core, interphase ring, and
+# matrix simultaneously as concentric regions of ONE new surface -
+# no need for separate cuts per region type.
+#
+# Run: lmp -in 01_cut_equatorial_slab.in
+# ==========================================================================
+
+units           metal
+dimension       3
+boundary        p p p
+atom_style      atomic
+
+# Accepts -var struct_file <path> from the submit script. Command-line
+# -var always creates an "index"-style variable, so the in-script default
+# below must also be "index" style - LAMMPS will keep the command-line
+# value if one was already provided, and only apply this default if the
+# script is run standalone without -var. (Using "string" here, as before,
+# conflicts with the index-style variable -var already created and throws
+# "Cannot redefine variable ... with a different style".)
+variable        struct_file index AN_composite_relaxed_300K.data
+read_data       ${struct_file}
+
+# ---- 2NN MEAM potential: TERNARY Mg-Zn-Ca only (this structure has no Sr) ----
+pair_style      meam
+pair_coeff      * * library.meam Ca Zn Mg CaZnMg.meam Mg Zn Ca
+
+thermo          100
+thermo_style    custom step temp pe etotal press
+run             0
+
+# ---- Sphere center and cut plane ----
+variable        cx equal 103.5
+variable        cy equal 103.5
+variable        cz equal 103.5     # equatorial cut plane = sphere center
+variable        vac equal 20.0
+
+variable        zlo_box equal zlo
+variable        zhi_box equal zhi
+
+# ---- Delete everything above the equatorial plane ----
+region          upper_half block INF INF INF INF ${cz} ${zhi_box} units box
+group           to_delete region upper_half
+delete_atoms    group to_delete compress no
+
+print "Atoms remaining after equatorial cut: $(count(all))"
+
+# ---- Convert to slab boundary and add vacuum above the new cut surface ----
+variable        zhi_new equal ${cz}+${vac}
+change_box      all z final ${zlo_box} ${zhi_new} boundary p p f units box
+
+write_data      dualphase_equatorial_slab_raw.data
+write_dump      all custom equatorial_slab_raw.dump id type x y z
+
+print "Equatorial slab created. Surface is at z=${cz}, sphere center in-plane"
+print "at (x,y)=(${cx},${cy}). Proceed to 02_relax_surface.in"

@@ -1,0 +1,73 @@
+cell,region,site,mol,element,dZ,coordination,depth,zO,Eads_unmatched,Eads_matched
+iface_N_D28,interphase,s1,H2O,Ca,-0.985,1,,2.380506895,-0.8609,-0.7206
+iface_S_D26,interphase,s1,H2O,Ca,-0.978,1,,2.384652410800001,-0.8456,-0.7511
+iface_S_D28,interphase,s1,H2O,Ca,-0.92,1,,2.3733034140000004,-1.0515,-0.7460
+matrix_xm,glass matrix,s1,H2O,Ca,-0.915,1,,2.0133113897,-0.9555,-0.7003
+matrix_xp,glass matrix,s1,H2O,Ca,-0.805,1,,1.4732739123999998,-0.9785,-0.6648
+crystal_ideal,crystal,atop,H2O,Mg,nan,1,,2.140972469600001,-0.3805,-0.3805
+iface_N_D28,interphase,s4,H2O,Mg,-0.371,1,,1.354112387299999,-0.8479,-0.7134
+iface_S_D26,interphase,s3,H2O,Mg,-0.017,1,,1.9234610677,-0.3880,-0.3738
+iface_S_D26,interphase,s5,H2O,Mg,-0.176,1,,1.6655569606,-0.6115,-0.5668
+iface_S_D27,interphase,s2,H2O,Mg,-0.316,1,,2.0943433999000014,-0.6380,-0.6294
+iface_S_D28,interphase,s3,H2O,Mg,-0.311,1,,1.6560787430000001,-0.6901,-0.5990
+iface_S_D28,interphase,s4,H2O,Mg,-0.125,1,,2.072495977300001,-0.6498,-0.4745
+iface_S_D28,interphase,s5,H2O,Mg,-0.162,1,,1.5637945900000005,-0.7067,-0.5184
+matrix_xm,glass matrix,s3,H2O,Mg,-0.291,1,,1.0932013163,-0.8151,-0.6582
+matrix_xp,glass matrix,s2,H2O,Mg,0.253,1,,2.1512677382999996,-0.6685,-0.3723
+matrix_xp,glass matrix,s3,H2O,Mg,-0.172,1,,0.4675434769000013,-0.9557,-0.6102
+matrix_yp,glass matrix,s2,H2O,Mg,-0.284,1,,1.0089223908999987,-0.6670,-0.6037
+matrix_yp,glass matrix,s4,H2O,Mg,-0.464,1,,2.0697739112000004,-0.8128,-0.7057
+iface_N_D26,interphase,s1,H2O,Zn,-0.049,1,,2.2526898118,-0.2598,-0.2598
+iface_N_D28,interphase,s2,H2O,Zn,0.26,0,,2.9849383740000004,-0.2549,-0.1419
+iface_N_D28,interphase,s3,H2O,Zn,0.198,0,,2.886769881000001,-0.2705,-0.1271
+iface_N_D28,interphase,s5,H2O,Zn,0.069,1,,1.1706698835000005,-0.4462,-0.3391
+iface_N_D28,interphase,s6,H2O,Zn,0.09,1,,1.104563002499999,-0.4162,-0.2675
+iface_S_D26,interphase,s2,H2O,Zn,0.218,0,,2.1810979483999997,-0.2091,-0.1098
+iface_S_D26,interphase,s4,H2O,Zn,0.288,0,,2.719536424300001,-0.1937,-0.1262
+iface_S_D27,interphase,s1,H2O,Zn,0.132,0,,1.6496796730999996,-0.2586,-0.1900
+iface_S_D28,interphase,s2,H2O,Zn,0.12,1,,1.5780232249000008,-0.3348,-0.2004
+matrix_xm,glass matrix,s2,H2O,Zn,0.227,0,,2.3530105401999997,-0.5633,-0.0633
+matrix_xm,glass matrix,s4,H2O,Zn,0.149,0,,1.7111587134999997,-0.2939,-0.0978
+matrix_xm,glass matrix,s5,H2O,Zn,0.074,1,,1.2730956930000001,-0.2880,-0.1941
+matrix_xp,glass matrix,s4,H2O,Zn,0.16,1,,0.7265990369000015,-0.3513,-0.1598
+matrix_xp,glass matrix,s5,H2O,Zn,0.304,1,,1.0024445265000015,-1.1426,-0.8010
+matrix_yp,glass matrix,s1,H2O,Zn,0.346,0,,2.1096569886999994,-0.4385,-0.1171
+matrix_yp,glass matrix,s3,H2O,Zn,0.131,0,,1.2151576419999994,-0.3926,-0.1523
+matrix_yp,glass matrix,s5,H2O,Zn,0.151,0,,1.8350678165999987,-0.2228,-0.1051
+iface_N_D28,interphase,s1,OH,Ca,-0.985,2,,0.9632776815999993,-1.9961,-1.8558
+iface_S_D26,interphase,s1,OH,Ca,-0.978,1,,1.9592823192000015,-1.1132,-1.0187
+iface_S_D28,interphase,s1,OH,Ca,-0.92,2,,0.5971586009000003,-1.7752,-1.4697
+matrix_xm,glass matrix,s1,OH,Ca,-0.915,1,,1.827846942499999,-1.0089,-0.7324
+matrix_xp,glass matrix,s1,OH,Ca,-0.805,2,,0.9657430464000001,-1.4626,-1.0540
+crystal_ideal,crystal,atop,OH,Mg,nan,1,,1.8273655392000006,-0.3023,-0.3023
+crystal_ideal,crystal,fcc,OH,Mg,nan,3,,0.9708485383999985,-1.6267,-1.6246
+crystal_ideal,crystal,hcp,OH,Mg,nan,3,,0.9532751923000014,-1.6168,-1.6158
+iface_N_D28,interphase,s4,OH,Mg,-0.371,2,,0.6189552954999993,-1.3035,-1.1168
+iface_S_D26,interphase,s3,OH,Mg,-0.017,3,,0.6084902239000005,-1.6274,-1.6132
+iface_S_D26,interphase,s5,OH,Mg,-0.176,2,,0.7064372659,-1.6962,-1.6515
+iface_S_D27,interphase,s2,OH,Mg,-0.316,1,,1.7842189351000002,-1.0085,-0.9999
+iface_S_D28,interphase,s3,OH,Mg,-0.311,2,,0.7508134040000005,-1.8937,-1.8026
+iface_S_D28,interphase,s4,OH,Mg,-0.125,3,,0.8471117788000004,-1.8749,-1.6996
+iface_S_D28,interphase,s5,OH,Mg,-0.162,2,,0.5807940907999996,-1.7641,-1.5758
+matrix_xm,glass matrix,s3,OH,Mg,-0.291,1,,0.8679534749000002,-0.9087,-0.7178
+matrix_xp,glass matrix,s2,OH,Mg,0.253,2,,1.2365797156999996,-1.1831,-0.8062
+matrix_xp,glass matrix,s3,OH,Mg,-0.172,2,,-0.15882433119999995,-1.8215,-1.4760
+matrix_yp,glass matrix,s2,OH,Mg,-0.284,2,,0.24677684509999942,-1.5357,-1.4723
+matrix_yp,glass matrix,s4,OH,Mg,-0.464,1,,1.7149261572000007,-1.0869,-0.8891
+iface_N_D26,interphase,s1,OH,Zn,-0.049,1,,1.7901422637,-0.4599,-0.3885
+iface_N_D28,interphase,s2,OH,Zn,0.26,3,,0.7809992693000005,-1.7127,-1.5807
+iface_N_D28,interphase,s3,OH,Zn,0.198,2,,0.9752813897999992,-1.6407,-1.4134
+iface_N_D28,interphase,s5,OH,Zn,0.069,2,,0.882311550699999,-1.0450,-0.8645
+iface_N_D28,interphase,s6,OH,Zn,0.09,2,,0.9193174898999992,-1.2373,-1.0385
+iface_S_D26,interphase,s2,OH,Zn,0.218,3,,0.6422845116999998,-1.6744,-1.5332
+iface_S_D26,interphase,s4,OH,Zn,0.288,3,,0.615793484400001,-1.4683,-1.3955
+iface_S_D27,interphase,s1,OH,Zn,0.132,2,,0.14071201870000039,-1.2495,-1.1403
+iface_S_D28,interphase,s2,OH,Zn,0.12,3,,0.8222622634000007,-1.2656,-1.0750
+matrix_xm,glass matrix,s2,OH,Zn,0.227,2,,0.2958868331999991,-2.1606,-1.5684
+matrix_xm,glass matrix,s4,OH,Zn,0.149,2,,0.32166367880000024,-1.3250,-1.1002
+matrix_xm,glass matrix,s5,OH,Zn,0.074,2,,0.5206580987000002,-0.4250,-0.3195
+matrix_xp,glass matrix,s4,OH,Zn,0.16,3,,0.13303781719999996,-1.2597,-1.0681
+matrix_xp,glass matrix,s5,OH,Zn,0.304,2,,0.2567367266999998,-1.6130,-1.1670
+matrix_yp,glass matrix,s1,OH,Zn,0.346,2,,0.22536172639999918,-1.2392,-0.8234
+matrix_yp,glass matrix,s3,OH,Zn,0.131,2,,-0.02251348750000126,-1.2511,-0.9630
+matrix_yp,glass matrix,s5,OH,Zn,0.151,2,,0.5717634342999993,-0.9502,-0.8326

@@ -1,0 +1,86 @@
+# ==========================================================================
+# Stage 2: heal the periodic seam / relax the free surface of one patch (MEAM).
+#
+# Input : patches/<name>.data from 07_build_periodic_patch.py (periodic x,y,
+#         free z, bottom ~4 A frozen to mimic bulk).
+# Output: patches/<name>_relaxed.data / .dump
+#
+# relax_box = 1  also relaxes the lateral cell to zero stress. USE FOR MATRIX
+#                (amorphous) PATCHES: removing overlapping atoms at the seam leaves
+#                them ~7-10% under-dense and a fixed cell cannot recover that.
+# relax_box = 0  keeps the lattice-matched cell. USE FOR crystal_ideal AND iface_*:
+#                the crystal needs Lx = 5a, Ly = 3*sqrt(3)*a to stay seamless.
+#
+# Run (serial is fine, ~170 atoms):
+#   lmp -in 08_relax_patch.in -var patch_data patches/iface_N_D26.data \
+#       -var out patches/iface_N_D26 -var relax_box 0
+# NOTE: written from commands already used successfully in steps 01/02 (region,
+# group, setforce, velocity loop geom, nvt, minimize, write_data). New here:
+# fix box/relax (guarded by relax_box) and a group temperature compute.
+# ==========================================================================
+
+units           metal
+dimension       3
+boundary        p p f
+atom_style      atomic
+
+variable        patch_data index patches/iface_N_D26.data
+variable        out        index patches/iface_N_D26
+variable        relax_box  index 0
+variable        frozen_depth index 4.0
+variable        anneal_T   index 300.0
+variable        anneal_steps index 20000
+variable        quench_steps index 10000
+
+read_data       ${patch_data}
+
+pair_style      meam
+pair_coeff      * * library.meam Ca Zn Mg CaZnMg.meam Mg Zn Ca
+
+neighbor        2.0 bin
+neigh_modify    delay 0 every 1 check yes
+
+# ---- freeze the bottom of the patch (mimics semi-infinite bulk) ----
+variable        zmin equal $(bound(all,zmin))
+variable        zcut equal ${zmin}+${frozen_depth}
+region          bottom block INF INF INF INF INF ${zcut} units box
+group           frozen region bottom
+group           mobile subtract all frozen
+print           "Frozen atoms: $(count(frozen))  Mobile atoms: $(count(mobile))"
+
+fix             freeze frozen setforce 0.0 0.0 0.0
+velocity        frozen set 0.0 0.0 0.0
+
+compute         mobT mobile temp
+thermo_modify   temp mobT
+thermo          1000
+thermo_style    custom step temp pe etotal lx ly lz press
+
+# ---- 1. minimise (overlaps removed in 07 are already >= 2.2 A apart) ----
+if "${relax_box} == 1" then "fix rb all box/relax x 0.0 y 0.0 couple xy vmax 0.001"
+min_style       cg
+minimize        1.0e-8 1.0e-10 5000 50000
+if "${relax_box} == 1" then "unfix rb"
+
+# ---- 2. anneal the mobile atoms so the seam can reorganise ----
+velocity        mobile create ${anneal_T} 12345 mom yes rot no dist gaussian loop geom
+fix             nvt_a mobile nvt temp ${anneal_T} ${anneal_T} 0.1
+timestep        0.001
+run             ${anneal_steps}
+unfix           nvt_a
+
+# ---- 3. quench ----
+fix             nvt_q mobile nvt temp ${anneal_T} 5.0 0.1
+run             ${quench_steps}
+unfix           nvt_q
+
+# ---- 4. final minimisation ----
+if "${relax_box} == 1" then "fix rb all box/relax x 0.0 y 0.0 couple xy vmax 0.001"
+minimize        1.0e-8 1.0e-10 10000 100000
+if "${relax_box} == 1" then "unfix rb"
+
+variable        pea equal pe/atoms
+print           "FINAL patch ${patch_data}: N=$(atoms) pe/atom=$(v_pea:%.5f) eV  Lx=$(lx:%.4f) Ly=$(ly:%.4f) A"
+
+write_data      ${out}_relaxed.data
+write_dump      all custom ${out}_relaxed.dump id type x y z

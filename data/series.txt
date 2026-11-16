@@ -1,0 +1,9 @@
+# <label>  <path to quenched matrix .data>
+# Zn series at x_Ca = 0.05
+c04_zn25  /gpfs-home/p230674mt/matrices/comp4_quenched_matrix_300K.data
+c09_zn32  /gpfs-home/p230674mt/matrices/comp9_quenched_matrix_300K.data
+c01_zn35  /gpfs-home/p230674mt/matrices/comp1_quenched_matrix_300K.data
+c10_zn38  /gpfs-home/p230674mt/matrices/comp10_quenched_matrix_300K.data
+# Ca series at x_Zn = 0.35 (c01 above is the x_Ca = 0.05 point, cut once)
+c05_ca03  /gpfs-home/p230674mt/matrices/comp5_quenched_matrix_300K.data
+c06_ca07  /gpfs-home/p230674mt/matrices/comp6_quenched_matrix_300K.data

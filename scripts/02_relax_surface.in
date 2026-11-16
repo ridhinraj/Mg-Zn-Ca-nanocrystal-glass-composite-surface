@@ -1,0 +1,79 @@
+# ==========================================================================
+# Stage 1b: Relax the exposed equatorial surface of the slab.
+#
+# Only atoms within 40 A of the new surface (z=103.5, the sphere's
+# equatorial plane) are mobile; everything deeper is frozen (mimics
+# semi-infinite bulk, same idea as Sun/Ju 2020's fixed-bottom convention,
+# adapted here to a much thicker residual slab). Mobile atoms get a short
+# NVT anneal to let the surface reconstruct, then a quench and minimization.
+#
+# Run: lmp -in 02_relax_surface.in
+# ==========================================================================
+
+units           metal
+dimension       3
+boundary        p p f
+atom_style      atomic
+
+# Accepts -var slab_file <path>; defaults to step 01's standard output name.
+variable        slab_file index dualphase_equatorial_slab_raw.data
+read_data       ${slab_file}
+
+# Ternary Mg-Zn-Ca only - confirmed from AN_composite_relaxed_300K.data (no Sr)
+pair_style      meam
+pair_coeff      * * library.meam Ca Zn Mg CaZnMg.meam Mg Zn Ca
+
+# ---- Define fixed region relative to the NEW surface, not the old box
+#      boundary. The equatorial cut left a ~102 A thick residual slab
+#      (~194,500 atoms) - far thicker than needed. Only atoms within
+#      ~40 A of the new surface (z=103.5) can plausibly reconstruct;
+#      everything deeper is frozen bulk and would just waste compute if
+#      thermostatted. This also naturally keeps the fixed boundary well
+#      clear of the crystal/interphase/matrix regions near the surface.
+variable        surface_z equal 103.5
+variable        mobile_depth equal 40.0
+variable        mobile_zlo equal ${surface_z}-${mobile_depth}
+
+region          mobile_zone block INF INF INF INF ${mobile_zlo} ${surface_z} units box
+group           mobile_atoms region mobile_zone
+group           fixed_atoms subtract all mobile_atoms
+
+print "Fixed atoms: $(count(fixed_atoms))"
+print "Mobile atoms: $(count(mobile_atoms))"
+
+# ---- Freeze the fixed group (zero net force/velocity) ----
+fix             freeze_bottom fixed_atoms setforce 0.0 0.0 0.0
+velocity        fixed_atoms set 0.0 0.0 0.0
+
+# ---- Thermostat only the mobile region ----
+# NOTE: atom IDs are non-consecutive after step 01's delete_atoms (run with
+# compress no, to preserve traceability to the original bulk structure).
+# "loop geom" seeds each atom's velocity from its coordinates rather than
+# its ID, so it works fine with gapped IDs (the default "loop all" does not
+# and throws "Atom IDs must be consecutive").
+velocity        mobile_atoms create 300.0 12345 mom yes rot yes dist gaussian loop geom
+fix             nvt_mobile mobile_atoms nvt temp 300.0 300.0 0.1
+
+timestep        0.001          # 1 fs
+thermo          200
+thermo_style    custom step temp pe etotal press
+
+# ---- Short anneal to let the surface reconstruct (20 ps) ----
+run             20000
+
+unfix           nvt_mobile
+
+# ---- Quench: ramp down to near-0K to remove thermal noise before DFT ----
+fix             nvt_quench mobile_atoms nvt temp 300.0 5.0 0.1
+run             10000
+unfix           nvt_quench
+
+# ---- Final energy minimization ----
+min_style       cg
+minimize        1.0e-8 1.0e-10 10000 100000
+
+write_data      equatorial_slab_relaxed.data
+write_dump      all custom equatorial_slab_relaxed.dump id type x y z vx vy vz
+
+print "Surface relaxation complete -> equatorial_slab_relaxed.data"
+print "Proceed to 03_phase_id_and_region_select.py"

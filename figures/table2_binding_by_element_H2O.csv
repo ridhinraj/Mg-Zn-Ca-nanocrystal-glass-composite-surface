@@ -1,0 +1,4 @@
+element,mean_eV,sd_eV,n,n_no_metal_neighbour
+Ca,-0.7165,0.0354,5,0
+Mg,-0.5688,0.1141,12,0
+Zn,-0.2031,0.1695,17,10

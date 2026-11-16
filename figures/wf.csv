@@ -1,0 +1,11 @@
+cell,W
+crystal_ideal,3.7230
+iface_N_D26,3.7460
+iface_N_D28,3.6380
+iface_S_D26,3.5340
+iface_S_D27,3.6660
+iface_S_D28,3.6440
+matrix_xm,3.7510
+matrix_xp,3.6390
+matrix_ym,3.5260
+matrix_yp,3.6890

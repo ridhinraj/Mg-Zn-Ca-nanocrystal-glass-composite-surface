@@ -1,0 +1,10 @@
+&projwfc
+  prefix  = 'crystal_ideal'
+  outdir  = './tmp_crystal_ideal'
+  filpdos = 'pdos/crystal_ideal/crystal_ideal'
+  Emin    = -11.67
+  Emax    = 4.33
+  DeltaE  =  0.02
+  ngauss  =  0
+  degauss =  0.01
+/
