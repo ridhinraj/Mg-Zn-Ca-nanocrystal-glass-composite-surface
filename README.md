@@ -30,12 +30,12 @@ figures/     the manuscript figures (PDF + PNG) and the table CSVs
 
 ## Pipeline
 
-Run in numerical order. Scripts 15 and 17 do not exist; the numbering has gaps where
-exploratory steps were dropped.
+Run in numerical order. The numbering has gaps (no 15 or 17) where exploratory steps were
+dropped; 24 scripts remain and all of them are used.
 
 | Step | Script | What it does |
 |---|---|---|
-| 01–02 | `01_*.in`, `02_relax_surface.in` | cut the equatorial slab from the parent composite, insert vacuum, relax (LAMMPS) |
+| 01–02 | `01_cut_equatorial_slab.in`, `02_relax_surface.in` | cut an equatorial slab through the nanocrystal centre, add vacuum above the cut, relax (LAMMPS). Cutting at the equator exposes crystal core, interphase ring and glass matrix as concentric regions of one surface |
 | 03–04 | `03_region_select_numpy.py`, `04_xyz_to_qe.py` | identify crystal / interphase / glass regions; convert to QE format |
 | 05 | `05_make_qe_inputs.py` | SCF and projwfc inputs |
 | 06 | `06_analyze_pdos.py` | per-atom Löwdin charges, p-band centres, neighbour counts → `analysis_<cell>.csv` |
